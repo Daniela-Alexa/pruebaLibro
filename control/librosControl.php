@@ -9,7 +9,7 @@ class libroControl{
     public $idAutor;
 
     public function ctrlRegistrarLibro(){
-        $objRegistrar = libroModelo::mdlRegistrar($this->idLibro, $this->titulo,$this->descripcion, $this->idAutor);
+        $objRegistrar = libroModelo::mdlRegistrar( $this->titulo,$this->descripcion, $this->idAutor);
         echo json_encode($objRegistrar);
     }
 
@@ -17,26 +17,27 @@ class libroControl{
         $objRespuesta = libroModelo::mdlCargarAutor();
         echo json_encode($objRespuesta);
     }
+
     public function ctrListar(){
         $objRespuesta =  libroModelo::mdlListar();
-        return $objRespuesta;
+        echo json_encode($objRespuesta);
     }
 }
 
 if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["idAutor"])){
-    $objRegistrar = new libroControl;
+    $objRegistrar = new libroControl();
     $objRegistrar->titulo = $_POST["titulo"];
     $objRegistrar->descripcion = $_POST["descripcion"];
-    $objRegistrar->descripcion = $_POST["idAutor"];
+    $objRegistrar->idAutor = $_POST["idAutor"];
     $objRegistrar->ctrlRegistrarLibro();
 }
 
 if (isset($_POST["cargarAutor"])=="ok"){
-    $objAutor = new libroControl;
+    $objAutor = new libroControl();
     $objAutor-> ctlCargarAutor();
 }
 
-if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["idAutor"])){
-    $objListar = new libroControl;
+if (isset($_POST["cargarDatos"])=="ok"){
+    $objListar = new libroControl();
     $objListar->ctrListar();
 }

@@ -8,7 +8,7 @@ class conexion{
         $password = "";
 
         try {
-           $objConexion = new PDO('mysql:host='.$nombreServidor.';dbname ='.$baseDatos.';',$usuario,$password);
+           $objConexion = new PDO('mysql:host='.$nombreServidor.';dbname='.$baseDatos.';',$usuario,$password);
            $objConexion->exec("set names utf8");
         } catch (Exception $e) {
             $objConexion = $e;
@@ -19,4 +19,3 @@ class conexion{
 
 
 
-?>

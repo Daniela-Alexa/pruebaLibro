@@ -6,14 +6,20 @@ include_once "conexion.php";
 class libroModelo
 {
     public static function mdlCargarAutor()
-    {
-
+    {      $mensaje = "";
         $objRespuesta = conexion::conectar()->prepare("SELECT * FROM autor");
-        $objRespuesta->execute();
-        $objLitarAutor = $objRespuesta->fetchAll();
-        $objRespuesta = null;
+        try {
+            $objRespuesta->execute();
+            $objLitarAutor = $objRespuesta->fetchAll();
+            $objRespuesta = null;
+        } catch (Exception $e) {
+            $mensaje = $e;
+        }
+        
         return $objLitarAutor;
     }
+
+
     public static function mdlRegistrar($titulo, $descripcion, $idAutor)
     {
 
@@ -33,12 +39,14 @@ class libroModelo
         }
         return $mensaje;
     }
-    public static function mdlListar(){
-        $objRespuestaL = conexion::conectar()->prepare("SELECT * FROM libros");
-       $objRespuestaL->execute();
-       $objListar = $objRespuestaL->fetchAll();
-       $objRespuestaL = null;
-       return $objListar;
 
+
+    public static function mdlListar()
+    {
+        $objRespuestaL = conexion::conectar()->prepare("SELECT * FROM libros");
+        $objRespuestaL->execute();
+        $objListar = $objRespuestaL->fetchAll();
+        $objRespuestaL = null;
+        return $objListar;
     }
 }
