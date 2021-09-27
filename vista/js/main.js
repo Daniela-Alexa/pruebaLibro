@@ -1,6 +1,6 @@
 $(document).ready(function(){
     cargarAutor();
-
+    cargarDatos();
 $("#btnRegitrar").click(function(){
 
 var titulo = $("#txttitulo").val();
@@ -70,7 +70,54 @@ $.ajax({
 
 }
 
-function cargarAutor() {}
+function cargarDatos() {
+
+    var cargarDatos = "ok";
+    var objDatacargarDatos = new FormData();
+    
+    objDatacargarAutor.append("cargarDatos", cargarDatos)
+    
+    $.ajax({
+    
+        url: "control/librosControl.php",
+        type: "post",
+        dataType: "json",
+        data:objDatacargarDatos,
+        cache: false,
+        contentType:false,
+        processData:false,
+        success: function(respuesta){
+        
+         var interface = '';
+          respuesta.forEach(cargarDatosLibros);
+
+        function cargarDatosLibros(item, index) {
+            interface += '<tr>';
+            interface += '<td>' +item.titulo + '</td>';
+            interface += '<td>' +item.descripcion + '</td>';
+            interface += '<td>' +item.nombre + '</td>';
+            interface += '<td>';
+
+
+            interface += '<div class="btn-group">';
+            interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditar" idLibro="'+item.idLibro+'"  titulo="'+item.titulo+'" descripcion="'+item.descripcion+'"  idAutor="'+item.idAutor+'" data-toggle="modal" data-target="#ventanaModLibros"><span class="glyphicon glyphicon-pencil"></span></button>';
+            interface += '<button type="button" class="btn btn-danger" title="Eliminar" id="btnEliminar" idLibro="'+item.idLibro+'" ><span class="glyphicon glyphicon-remove"></span></button>';
+            interface += '</div>';
+            interface += '</td>';
+            interface += '</tr>';
+
+        }
+$("#cuerpoTabla").html(interface);
+
+        }
+        })
+    
+
+
+
+
+
+}
 
 
 
