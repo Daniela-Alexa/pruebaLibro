@@ -13,7 +13,7 @@ $(document).ready(function () {
         objData.append("descripcion", descripcion);
         objData.append("idAutor", autor);
 
-alert(autor+titulo+descripcion);
+
         $.ajax({
 
             url: "control/librosControl.php",
@@ -24,7 +24,7 @@ alert(autor+titulo+descripcion);
             contentType: false,
             processData: false,
             success: function (respuesta) {
-
+                alert("holaaa");
                 swal({
                     title: "Buen Trabajo!",
                     text: "registrado correctamente",
